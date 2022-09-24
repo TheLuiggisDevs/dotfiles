@@ -1,0 +1,31 @@
+ yay libva-intel-driver-g45-h265
+intel-undervold
+sudo nano /etc/intel-undervolt.conf
+tlp
+sudo pacman -S intel-hybrid-codec-driver intel-gpu-tools i965-va-driver
+intel-media-driver mesa vulkan-intel  
+
+
+linux-clear
+> sudo nano /usr/share/X11/xorg.conf.d/20-intel.conf
+ 1 Section "Device"
+ 2  Identifier "Intel Graphics"
+ 3  Driver "Intel"
+ 4  Option "AccelMethod" "blt"
+ 5  Option "TearFree" "True"
+ 6  Option "Tiling" "True"
+ 7  Option "SwapbuffersWait" "True"
+ 8  Option "DRI" "3"
+ 9 EndSection
+
+
+drivers
+sudo nano /etc/modprobe.d/i915.conf
+options i915 enable_guc=2 enable_dc=4 enable_hangcheck=0 error_capture=0 enable_dp_mst=0 fastboot=1 
+
+grub 
+
+GRUB_CMDLINE_LINUX_DEFAULT="loglevel=0 console=tty2 udev.log_level=0 vt.global_cursor_default=0 mitigations=off nowatchdog msr.allow_writes=on pcie_aspm=force module.sig_unenforce intel_idle.max_cstate=1 cryptomgr.notests initcall_debug intel_iommu=igfx_off no_timer_check noreplace-smp page_alloc.shuffle=1 rcupdate.rcu_expedited=1 tsc=reliable resume=UUID=b6063c20-d091-4334-8726-55e0ee6b0aed i915.i915_enable_rc6=1 i915.lvds_downclock=1 i915.i915_enable_fbc=1 "
+GRUB_DISABLE_OS_PROBER=true
+GRUB_DISABLE_RECOVERY=true
+GRUB_DISABLE_SUBMENU=true
